@@ -1,4 +1,4 @@
-# Minimal reproduction Plugin for Spigot Bug
+# Minimal reproduction Plugin for [SPIGOT-7803](https://hub.spigotmc.org/jira/browse/SPIGOT-7803)
 Affects Minecraft 1.20.1, but `api-version=1.18` is known to also be faulty
 
 ## How to use
