@@ -34,9 +34,6 @@ public class TestMod extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getRawSlot() != 2 || event.getInventory().getType() != InventoryType.ANVIL)
-            return;
-
         var item = event.getCurrentItem();
         Bukkit.broadcastMessage("Item is " + item);
         try {
