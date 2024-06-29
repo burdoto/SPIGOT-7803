@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id "de.undercouch.download" version "5.5.0"
 }
 
@@ -20,8 +19,8 @@ tasks.register('serverJar', Copy) {
 }
 
 tasks.register('testPlugin', Copy) {
-    dependsOn shadowJar, serverJar
-    from shadowJar.outputs.files.singleFile
+    dependsOn jar, serverJar
+    from jar.outputs.files.singleFile
     into "${projectDir}/run/plugins"
     rename { n -> "testplugin.jar" }
 }
