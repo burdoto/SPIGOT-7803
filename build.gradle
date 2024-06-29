@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id "de.undercouch.download" version "5.5.0"
+}
+
+group = "org.example"
+version = "1.0-SNAPSHOT"
+
+tasks.register('dlServerJar', Download).configure {
+    src 'https://download.getbukkit.org/spigot/spigot-1.20.1.jar'
+    dest "${buildDir}/libs/server.jar"
+}
+
+tasks.register('serverJar', Copy) {
+    dependsOn dlServerJar
+    from dlServerJar.outputs.files.singleFile
+    into "$projectDir/run"
+    rename { n -> "server.jar" }
+}
+
+tasks.register('testPlugin', Copy) {
+    dependsOn shadowJar, serverJar
+    from shadowJar.outputs.files.singleFile
+    into "${projectDir}/run/plugins"
+    rename { n -> "testplugin.jar" }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    implementation 'org.spigotmc:spigot-api:1.20-R0.1-SNAPSHOT'
+}
